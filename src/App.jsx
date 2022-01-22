@@ -10,13 +10,14 @@ import Welcome from './pages/Welcome';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Creator from './pages/Creator';
-import Login from './pages/Login'
+import Login from './pages/Login';
+import Register from './pages/Register';
 
 export default function App() {
 	const [cookies] = useCookies();
 
 	return (
-		<TokenProvider userToken={cookies.idUser ? cookies.idUser : null}>
+		<TokenProvider userToken={cookies.idUser ? cookies.idUser : ''}>
 			<GlobalStyle/>
 				<BrowserRouter>
 					<Switch>
@@ -24,7 +25,7 @@ export default function App() {
 						<Route path="/contact" render={() => <Contact />} />
 						<Route path="/creator" render={() => <Creator />} />	
 						<Route path="/login" render={() => <Login/>}/>
-						<Route path="/register" render={() => <Welcome/>}/>					
+						<Route path="/register" render={() => <Register/>}/>					
 						{
 							!cookies.idUser
 								? <Route path="/" render={() => <Welcome />} />

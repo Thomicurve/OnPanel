@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import * as Yup from 'yup';
 import { useFormik } from "formik";
+import UserContext from '../../context/UserContext'
+import Swal from 'sweetalert2'
 
-import { FormContainer, ButtonContainer } from "./style";
+// Services
+import { LoginService } from "../../services/Auth";
 
 // Components
 import Navbar from "../../components/Navbar";
@@ -11,6 +14,7 @@ import Title from '../../components/Auth/Title';
 import Input from "../../components/Auth/Input";
 import RedirectAuth from "../../components/Auth/RedirectAuth";
 import Buttons from '../../components/Buttons';
+import { FormContainer, ButtonContainer } from "../../styles/AuthForms";
 
 const LoginSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email').required('Email required'),
@@ -18,9 +22,18 @@ const LoginSchema = Yup.object().shape({
 });
 
 const Login = () => {
-
-    const handleSubmit = ({email, password}) => {
-        console.log({email, password});
+    const { token } = useContext(UserContext);
+    const handleSubmit = async ({email, password}) => {
+        const result = await LoginService({token, email, password});
+        if(result.error) 
+            return Swal.fire({
+                icon: 'error',
+                text: result.message
+            });
+        else return Swal.fire({
+            text: result.message,
+            icon: 'success'
+        })
     }
 
     const loginFormik = useFormik({

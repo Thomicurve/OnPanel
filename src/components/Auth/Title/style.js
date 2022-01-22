@@ -10,7 +10,7 @@ const TitleText = styled.h4`
 
 const TitleContainer = styled.header`
     width: 100%;
-    margin-top: 200px;
+    margin-top: 150px;
 `;
 
 export {TitleText, TitleContainer};

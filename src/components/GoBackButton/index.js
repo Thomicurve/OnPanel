@@ -6,7 +6,7 @@ import { BackContentContainer, BackContainer, BackText } from "./style";
 const GoBackButton = () => {
     return (
         <BackContainer>
-            <Link to="/">
+            <Link style={{textDecoration: 'none'}} to="/">
                 <BackContentContainer>
                     <img width={25} src={LeftArrow} alt="left arrow icon" />
                     <BackText>Back to home</BackText>
