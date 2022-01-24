@@ -2,8 +2,11 @@ import React from 'react';
 import * as Yup from 'yup';
 import { useFormik } from "formik";
 import { FormContainer, ButtonContainer } from "../../styles/AuthForms";
+import Swal from 'sweetalert2';
+import { RegisterService } from '../../services/Auth';
+import { useHistory } from 'react-router-dom';
 
-
+// Components
 import Navbar from "../../components/Navbar";
 import GoBackButton from "../../components/GoBackButton";
 import Title from '../../components/Auth/Title';
@@ -14,15 +17,30 @@ import Buttons from '../../components/Buttons';
 const RegisterSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email').required('Required field'),
     name: Yup.string().required('Required field'),
-    password: Yup.string().required('Required field'),
+    password: Yup.string().required('Required field').min(8, 'The password must have 8 characters minimum'),
     repeatedPassword: Yup.string().required('Required field').oneOf([Yup.ref('password')], 'Passwords are not the same'),
 });
 
 
 const Register = () => {
 
-    const handleSubmit = (data) => {
-        console.log(data);
+    const history = useHistory();
+
+    const handleSubmit = async (data) => {
+        const result = await RegisterService(data);
+        
+        if(result.error)
+            return Swal.fire({
+                icon: 'error',
+                text: result.message
+            });
+        
+        else
+            Swal.fire({
+                icon: 'success',
+                text: result.message
+            });
+            setTimeout(() => history.push('/login'), 2000 );
     }
 
     const registerFormik = useFormik({
@@ -90,6 +108,7 @@ const Register = () => {
                         <Buttons handleSubmit={registerFormik.handleSubmit} register={true} buttonText={'Register'} formMode={true} />
                     </ButtonContainer>
                 </FormContainer>
+                <GoBackButton/>
             </section>
         </>
     )
