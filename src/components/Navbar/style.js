@@ -69,7 +69,7 @@ const NavmenuMobile = styled.div`
     background-color: ${colors.white};
     box-shadow: -6px 0px 10px rgba(0,0,0,0.15);
     z-index: 10;
-    right: -550px;
+    right: -640px;
     top: 0;
     display: flex;
     flex-direction: column;

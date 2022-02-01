@@ -10,7 +10,6 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     body {
-        height: 100vh;
-        overflow: hidden;
+        overflow-x: hidden;
     }
 `

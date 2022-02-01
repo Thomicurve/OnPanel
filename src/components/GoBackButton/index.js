@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 import LeftArrow from '../../assets/icons/LeftArrow.svg';
 import { BackContentContainer, BackContainer, BackText } from "./style";
 
-const GoBackButton = () => {
+const GoBackButton = ({backText}) => {
     return (
         <BackContainer>
             <Link style={{textDecoration: 'none'}} to="/">
                 <BackContentContainer>
                     <img width={25} src={LeftArrow} alt="left arrow icon" />
-                    <BackText>Back to home</BackText>
+                    <BackText>{backText}</BackText>
                 </BackContentContainer>
             </Link>
         </BackContainer>

@@ -3,15 +3,15 @@ import UserContext from '../context/UserContext';
 import {useCookies} from 'react-cookie';
 
 function Home() {
-    // const [cookies, setCookie, removeCookie] = useCookies();
-    // const {setToken, token: {token}} = useContext(UserContext); 
+    const [cookies, setCookie, removeCookie] = useCookies(['userID']);
+    const {setToken, token} = useContext(UserContext); 
 
     const handleLogout = () => {
         console.log('Exiting...👨‍💻');
 
         setTimeout(() => {
-            removeCookie('idUser');
-            setToken({token: null});
+            removeCookie('userID');
+            setToken('');
         }, 3000)
 
     }

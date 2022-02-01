@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-
 const TokenContext = React.createContext({token: ''});
 
 const TokenProvider = ({children, userToken}) => {

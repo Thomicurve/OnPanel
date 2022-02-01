@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { useCookies } from 'react-cookie'
+import { useCookies } from 'react-cookie';
 import { TokenProvider } from './context/UserContext';
 
 import { GlobalStyle } from './styles/Global';
@@ -12,12 +12,13 @@ import Contact from './pages/Contact';
 import Creator from './pages/Creator';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import SendEmail from './pages/SendEmail';
 
 export default function App() {
-	const [cookies] = useCookies();
+	const [cookies] = useCookies(['userID']);
 
 	return (
-		<TokenProvider userToken={cookies.idUser ? cookies.idUser : ''}>
+		<TokenProvider userToken={cookies.userID ? cookies.userID : ''}>
 			<GlobalStyle/>
 				<BrowserRouter>
 					<Switch>
@@ -25,9 +26,10 @@ export default function App() {
 						<Route path="/contact" render={() => <Contact />} />
 						<Route path="/creator" render={() => <Creator />} />	
 						<Route path="/login" render={() => <Login/>}/>
-						<Route path="/register" render={() => <Register/>}/>					
+						<Route path="/register" render={() => <Register/>}/>
+						<Route path="/send-email" render={() => <SendEmail/>}/>					
 						{
-							!cookies.idUser
+							!cookies.userID
 								? <Route path="/" render={() => <Welcome />} />
 								: <Route path="/" render={() => <Home />} />
 						}

@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { ErrorStyle } from '../components/Auth/Input/style';
 const url =  "http://localhost:3030" || process.env.API_URL;
 
 const LoginService = async ({token, email, password}) => {
@@ -14,7 +13,7 @@ const LoginService = async ({token, email, password}) => {
         })
         return result.data;
     } catch(error) {
-        return new Error(`Unexpected error: ${error}`)
+        return new Error(`Unexpected error: ${error}`);
     }
 };
 

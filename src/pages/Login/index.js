@@ -1,8 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import * as Yup from 'yup';
 import { useFormik } from "formik";
-import UserContext from '../../context/UserContext'
-import Swal from 'sweetalert2'
+import UserContext from '../../context/UserContext';
+import Swal from 'sweetalert2';
+import { useHistory } from "react-router-dom";
 
 // Services
 import { LoginService } from "../../services/Auth";
@@ -15,6 +16,7 @@ import Input from "../../components/Auth/Input";
 import RedirectAuth from "../../components/Auth/RedirectAuth";
 import Buttons from '../../components/Buttons';
 import { FormContainer, ButtonContainer } from "../../styles/AuthForms";
+import { useCookies } from "react-cookie";
 
 const LoginSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email').required('Email required'),
@@ -22,18 +24,32 @@ const LoginSchema = Yup.object().shape({
 });
 
 const Login = () => {
-    const { token } = useContext(UserContext);
+    const { token, setToken } = useContext(UserContext);
+    const [cookies, setCookies] = useCookies(['userID']);
+    const history = useHistory();
+    
+    // Verify if the user is already logged
+    useEffect(() => {
+        if(token) return history.goBack();
+        else return;
+    }, [])
+    
     const handleSubmit = async ({email, password}) => {
         const result = await LoginService({token, email, password});
         if(result.error) 
-            return Swal.fire({
-                icon: 'error',
-                text: result.message
-            });
-        else return Swal.fire({
+        return Swal.fire({
+            icon: 'error',
+            text: result.message
+        });
+        
+        setToken(result.token);
+        setCookies('userID', result.token);
+        Swal.fire({
             text: result.message,
             icon: 'success'
-        })
+        });
+
+        return setTimeout(() => history.push('/'), 1500);
     }
 
     const loginFormik = useFormik({
@@ -51,7 +67,7 @@ const Login = () => {
         <>
             <Navbar/>
             <section>
-                <GoBackButton/>
+                <GoBackButton backText={'Back to home'}/>
                 <Title message={'Login'}/>
                 <FormContainer onSubmit={loginFormik.handleSubmit}>
                     <Input 
@@ -74,7 +90,7 @@ const Login = () => {
                         />
                     <RedirectAuth 
                         message={'Did you forget your password? Click here'}
-                        linkURL={'/reset-password'}
+                        linkURL={'/send-email'}
                     />
                     <ButtonContainer>
                         <Buttons handleSubmit={loginFormik.handleSubmit} register={false} buttonText={'Login'} formMode={true}/>

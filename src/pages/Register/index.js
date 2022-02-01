@@ -108,7 +108,7 @@ const Register = () => {
                         <Buttons handleSubmit={registerFormik.handleSubmit} register={true} buttonText={'Register'} formMode={true} />
                     </ButtonContainer>
                 </FormContainer>
-                <GoBackButton/>
+                <GoBackButton backText={'Back to home'}/>
             </section>
         </>
     )
