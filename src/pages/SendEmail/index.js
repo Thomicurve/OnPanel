@@ -2,6 +2,7 @@ import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Swal from 'sweetalert2';
+import { useHistory } from 'react-router-dom';
 
 import Navbar from '../../components/Navbar';
 import Title from '../../components/Auth/Title';
@@ -9,15 +10,30 @@ import { FormContainer, ButtonContainer } from '../../styles/AuthForms';
 import Buttons from '../../components/Buttons';
 import GoBackButton from '../../components/GoBackButton';
 import Input from '../../components/Auth/Input';
+import { ResetPasswordService } from '../../services/Auth';
 
 const SendEmailSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email').required('Required field'),
 });
 
 const SendEmail = () => {
+    const history = useHistory();
+    const handleSubmit = async (data) => {
+        const result = await ResetPasswordService(data);
 
-    const handleSubmit = (data) => {
-        console.log(data);
+        if(result.error) return Swal.fire({
+            title: result.message,
+            icon: 'error'
+        });
+        else {
+            Swal.fire({
+                title: result.message,
+                icon: 'success'
+            });
+            return setTimeout(() => {
+                history.push('/reset-password');
+            }, 2000)
+        }
     }
 
     const emailFormik = useFormik({

@@ -13,6 +13,7 @@ import Creator from './pages/Creator';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import SendEmail from './pages/SendEmail';
+import ResetPassword from './pages/ResetPassword';
 
 export default function App() {
 	const [cookies] = useCookies(['userID']);
@@ -27,7 +28,8 @@ export default function App() {
 						<Route path="/creator" render={() => <Creator />} />	
 						<Route path="/login" render={() => <Login/>}/>
 						<Route path="/register" render={() => <Register/>}/>
-						<Route path="/send-email" render={() => <SendEmail/>}/>					
+						<Route path="/send-email" render={() => <SendEmail/>}/>
+						<Route path="/reset-password" render={() => <ResetPassword/>}/>					
 						{
 							!cookies.userID
 								? <Route path="/" render={() => <Welcome />} />
