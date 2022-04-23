@@ -43,7 +43,7 @@ const ResetPasswordService = async ({email}) => {
         });
         return result.data;
     } catch(error) {
-        return {message: error, error: true}
+        return {message: error, error: true};
     }
 };
 

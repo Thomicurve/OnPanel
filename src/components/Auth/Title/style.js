@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import colors from "../../../styles/Colors";
+import colors from "@styles/Colors";
 
 const TitleText = styled.h4`
     color: ${colors.darkBlue};

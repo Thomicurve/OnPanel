@@ -5,15 +5,15 @@ import { TokenProvider } from './context/UserContext';
 
 import { GlobalStyle } from './styles/Global';
 
-import Home from './pages/Home';
-import Welcome from './pages/Welcome';
-import About from './pages/About';
-import Contact from './pages/Contact';
-import Creator from './pages/Creator';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import SendEmail from './pages/SendEmail';
-import ResetPassword from './pages/ResetPassword';
+import Home from '@pages/Home';
+import Welcome from '@pages/NotLogged/Welcome';
+import About from '@pages/NotLogged/About';
+import Contact from '@pages/NotLogged/Contact';
+import Creator from '@pages/NotLogged/Creator';
+import Login from '@pages/NotLogged/Login';
+import Register from '@pages/NotLogged/Register';
+import SendEmail from '@pages/NotLogged/SendEmail';
+import ResetPassword from '@pages/NotLogged/ResetPassword';
 
 export default function App() {
 	const [cookies] = useCookies(['userID']);

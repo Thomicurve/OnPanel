@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import colors from "../../../styles/Colors";
+import colors from "@styles/Colors";
 
 const LinkText = styled.p`
     color: ${colors.lightBlue};
