@@ -29,7 +29,10 @@ const AllTasks = async (token) => {
                 'x-access-token': token
             }
         });
-        return {tasks: tasksResult.data.tasksList};
+        
+        if(!tasksResult.data.employees) return {tasks: [], hasEmployees: false};
+        return {tasks: tasksResult.data.tasksList, hasEmployees: true};
+
     } catch(error) {
         return {message: error, error: true}
     }

@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import { TokenProvider } from './context/UserContext';
+import TasksStore from './store/TasksStore';
+import { Provider } from 'react-redux';
 
 import { GlobalStyle } from './styles/Global';
 
@@ -20,16 +22,17 @@ export default function App() {
 
 	return (
 		<TokenProvider userToken={cookies.userID ? cookies.userID : ''}>
-			<GlobalStyle/>
+			<Provider store={TasksStore} >
+				<GlobalStyle />
 				<BrowserRouter>
 					<Switch>
 						<Route path="/about" render={() => <About />} />
 						<Route path="/contact" render={() => <Contact />} />
-						<Route path="/creator" render={() => <Creator />} />	
-						<Route path="/login" render={() => <Login/>}/>
-						<Route path="/register" render={() => <Register/>}/>
-						<Route path="/send-email" render={() => <SendEmail/>}/>
-						<Route path="/reset-password" render={() => <ResetPassword/>}/>					
+						<Route path="/creator" render={() => <Creator />} />
+						<Route path="/login" render={() => <Login />} />
+						<Route path="/register" render={() => <Register />} />
+						<Route path="/send-email" render={() => <SendEmail />} />
+						<Route path="/reset-password" render={() => <ResetPassword />} />
 						{
 							!cookies.userID
 								? <Route path="/" render={() => <Welcome />} />
@@ -37,6 +40,7 @@ export default function App() {
 						}
 					</Switch>
 				</BrowserRouter>
+			</Provider>
 		</TokenProvider>
 	)
 };
